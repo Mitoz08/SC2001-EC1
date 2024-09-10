@@ -53,8 +53,7 @@ public class VaryArraySize  {
         for (int i = 0; i < noOfSortObjects; i++) {
             System.out.print("Enter S Value: ");
             int j = sc.nextInt();
-            if (j == 0) SortObjects[i] = new MergeSort(MaxCases);
-            else SortObjects[i] = new MergeInsertSort(MaxCases,j);
+            SortObjects[i] = new MergeInsertSort(MaxCases,j);
         }
 
         int Size = (int) Math.ceil(((double)(ArrayInfo[1]-ArrayInfo[0]))/ArrayInfo[2]) + 1;
@@ -71,9 +70,14 @@ public class VaryArraySize  {
         for (BaseClass object: SortObjects) {
             object.resetData();
         }
-        int j = 0;
-        for (int Size = ArrayInfo[0]; Size <=ArrayInfo[1]; Size += ArrayInfo[2]) {
+        for (int j = 0; j < Results.length; j++) {
+            // If J is 0 put start ArraySize
+            // If start ArraySize is smaller than increment, the next ArraySize is just increment
+            // To eliminate the issues of stopping at 9951000 when bound is 1k - 10mil and increments of 50k
+            int Size = j == 0? ArrayInfo[0] :
+                    ArrayInfo[0] < ArrayInfo[2]? j*ArrayInfo[2] : ArrayInfo[0] + j*ArrayInfo[2];
             Results[j][0] = Size;
+            System.out.println(Size);
             for (BaseClass object: SortObjects) {
                 object.resetData();
             }
@@ -99,7 +103,6 @@ public class VaryArraySize  {
                     Results[j][1+i] = totalKey;
                 }
             }
-            j++;
         }
         saveFile();
     }

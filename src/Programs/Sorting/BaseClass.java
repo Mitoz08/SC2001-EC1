@@ -9,7 +9,7 @@ public abstract class BaseClass {
 
     protected static int totalTest = 0;
 
-    public int getN() {return 0;}
+    public int getS() {return 0;}
     public abstract int getTestCases();
     public abstract long getKeyAtT(int T);
     public abstract long getTimeAtT(int T);

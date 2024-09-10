@@ -4,36 +4,36 @@ import java.util.Arrays;
 
 public class MergeInsertSort extends BaseClass{
 
-    private int N;
+    private int S;
 
-    public void setN (int N){
-        this.N = N;
+    public void setS(int S){
+        this.S = S;
     }
 
     // Constructors
 
-    public MergeInsertSort(int N) {
+    public MergeInsertSort(int S) {
         this.testID = totalTest;
         this.testCases = 0;
         this.maxCases = 50;
         this.keyCompare = new long[50];
         this.timeTaken = new long[50];
-        this.N = N;
+        this.S = S;
         totalTest++;
     }
 
-    public MergeInsertSort(int maxCases, int N) {
+    public MergeInsertSort(int maxCases, int S) {
         this.testID = totalTest;
         this.testCases = 0;
         this.maxCases = maxCases;
         this.keyCompare = new long[maxCases];
         this.timeTaken = new long[maxCases];
-        this.N = N;
+        this.S = S;
         totalTest++;
     }
 
     // Methods
-    public int getN() {return this.N;}
+    public int getS() {return this.S;}
     public int getTestCases() {return this.testCases;}
     public long getKeyAtT(int T){
         return this.keyCompare[T];
@@ -58,10 +58,11 @@ public class MergeInsertSort extends BaseClass{
 
     public void runTest(int[] array) {
         //long startTime = System.currentTimeMillis();
+        //System.out.println(Arrays.toString(array));
         long startTime = System.nanoTime();
         int[] answer = mergeInsertSort(array,0,array.length);
-        this.timeTaken[this.testCases] = (System.nanoTime() - startTime)/ 1000000;
-
+        this.timeTaken[this.testCases] = (System.nanoTime() - startTime)/ 1000;
+        //System.out.println(Arrays.toString(answer));
 //        for (int i = 0; i < answer.length-1;i++) {
 //            if (answer[i] > answer[i+1]) {
 //                System.out.println("Fail");
@@ -94,7 +95,7 @@ public class MergeInsertSort extends BaseClass{
         int midPoint = start + returnSize/2;
 
         // Insertion Sort
-        if (returnSize <= this.N) {
+        if (returnSize <= this.S) {
             int[] returnArray = Arrays.copyOfRange(array,start,end);
             for (int i = 1; i < returnArray.length;i++){
                 for (int j = i; j > 0; j--) {
@@ -123,28 +124,23 @@ public class MergeInsertSort extends BaseClass{
             if (leftRecursion[left] == rightRecursion[right]) {
                 returnArray[index++] = leftRecursion[left++];
                 returnArray[index++] = rightRecursion[right++];
-                this.keyCompare[this.testCases]++; // Considered 1 Key comparison?
-            }
-            else if (leftRecursion[left] < rightRecursion[right]) {
+                this.keyCompare[this.testCases]++;
+            } else if (leftRecursion[left] < rightRecursion[right]) {
                 returnArray[index++] = leftRecursion[left++];
-                this.keyCompare[this.testCases]++; // Incrementing the key compare count
+                this.keyCompare[this.testCases]++;
             } else {
                 returnArray[index++] = rightRecursion[right++];
-                this.keyCompare[this.testCases]++; // Incrementing the key compare count
+                this.keyCompare[this.testCases]++;
             }
         }
         // Merging when 1 array is emptied
         if (right < rightRecursion.length){
             while (right < rightRecursion.length){
-                returnArray[index] = rightRecursion[right];
-                index++;
-                right++;
+                returnArray[index++] = rightRecursion[right++];
             }
         } else {
             while (left < leftRecursion.length){
-                returnArray[index] = leftRecursion[left];
-                index++;
-                left++;
+                returnArray[index++] = leftRecursion[left++];
             }
         }
         return returnArray;

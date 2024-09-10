@@ -2,12 +2,10 @@ package Programs;
 
 import Programs.Sorting.BaseClass;
 import Programs.Sorting.MergeInsertSort;
-import Programs.Sorting.MergeSort;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 public class VarySValue {
@@ -52,6 +50,7 @@ public class VarySValue {
         SValueInfo[2] = sc.nextInt();
 
         noOfSortObjects = (int) Math.ceil(((double)(SValueInfo[1]-SValueInfo[0]))/SValueInfo[2]) + 1;
+        System.out.println(noOfSortObjects);
         SortObjects = new BaseClass[noOfSortObjects];
         for (int i = 0; i < noOfSortObjects; i++) {
             int j = SValueInfo[0] + i*SValueInfo[2];
@@ -78,7 +77,7 @@ public class VarySValue {
         }
         int k = 0;
         for (BaseClass object: SortObjects) {
-            Results[k][0] = object.getN();
+            Results[k][0] = object.getS();
             for (int i = 0; i <noOfArraySize; i++){
                 for (int j = 0; j < AverageOf; j++) {
                     int[] Data = DistinctValues? DistinctRandom.randomArray(ArraySizes[i]): NonDistinctRandom.randomArray(ArraySizes[i],DATABOUND);
