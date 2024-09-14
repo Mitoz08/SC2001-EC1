@@ -75,18 +75,50 @@ public class VarySValue {
         for (BaseClass object: SortObjects) {
             object.resetData();
         }
-        int k = 0;
-        for (BaseClass object: SortObjects) {
-            Results[k][0] = object.getS();
-            for (int i = 0; i <noOfArraySize; i++){
-                for (int j = 0; j < AverageOf; j++) {
-                    int[] Data = DistinctValues? DistinctRandom.randomArray(ArraySizes[i]): NonDistinctRandom.randomArray(ArraySizes[i],DATABOUND);
+//        int k = 0;
+//        for (BaseClass object: SortObjects) {
+//            Results[k][0] = object.getS();
+//            System.out.println(Results[k][0]);
+//            for (int i = 0; i <noOfArraySize; i++){
+//                for (int j = 0; j < AverageOf; j++) {
+//                    int[] Data = DistinctValues? DistinctRandom.randomArray(ArraySizes[i]): NonDistinctRandom.randomArray(ArraySizes[i],DATABOUND);
+//                    object.runTest(Data);
+//                }
+//                long totalKey = 0;
+//                long totalTime = 0;
+//                for (long number: object.getKeyCompare()) totalKey += number;
+//                for (long number: object.getTimeTaken()) totalTime += number;
+//                totalKey /= AverageOf;
+//                totalTime /= AverageOf;
+//                if (OutputOption == 2) {
+//                    Results[k][1+i*2] = totalKey;
+//                    Results[k][2+i*2] = totalTime;
+//                } else if (OutputOption == 1) {
+//                    Results[k][1+i] = totalTime;
+//                } else {
+//                    Results[k][1+i] = totalKey;
+//                }
+//                object.resetData();
+//            }
+//            k++;
+//        }
+        for (int i = 0; i <noOfArraySize; i++){
+            System.out.println(i);
+            for (int j = 0; j < AverageOf; j++) {
+                System.out.print(j);
+                int[] Data = DistinctValues? DistinctRandom.randomArray(ArraySizes[i]): NonDistinctRandom.randomArray(ArraySizes[i],DATABOUND);
+                for (BaseClass object: SortObjects) {
                     object.runTest(Data);
                 }
+            }
+            System.out.println();
+            int k = 0;
+            for (BaseClass object: SortObjects) {
                 long totalKey = 0;
                 long totalTime = 0;
                 for (long number: object.getKeyCompare()) totalKey += number;
                 for (long number: object.getTimeTaken()) totalTime += number;
+                Results[k][0] = object.getS();
                 totalKey /= AverageOf;
                 totalTime /= AverageOf;
                 if (OutputOption == 2) {
@@ -98,8 +130,8 @@ public class VarySValue {
                     Results[k][1+i] = totalKey;
                 }
                 object.resetData();
+                k++;
             }
-            k++;
         }
         saveFile();
     }
